@@ -82,7 +82,7 @@
   <div class="chat-container">
     <div id="setup">
       <p>Who do you want to talk to?</p>
-      <input type="text" id="persona" placeholder="mom, dad, fairy godmother, auntie..." />
+      <input type="text" id="persona" placeholder="mom, dad, fairy godmother..." />
       <button onclick="startChat()">Start Chat</button>
     </div>
 
@@ -97,75 +97,60 @@
 
   <script>
     const messages = {
-      mom: [
-        "Sweetheart, you're doing better than you think.",
-        "Make sure to eat something today, okay?",
-        "I love you even when you're grumpy.",
-        "Did you drink water today?",
-        "Call me when you get a chance.",
-        "I packed snacks in your bag, don’t forget.",
-        "I know things are hard. You're doing your best.",
-        "I'm proud of you even when you don’t feel proud of yourself.",
-        "I wish I could give you a hug right now.",
-        "Get some rest, kiddo."
-      ],
-      dad: [
-        "Proud of you, kiddo. No matter what.",
-        "Remember, mistakes are how we grow.",
-        "I'm here, even if I'm quiet about it.",
-        "You’ve got this. One step at a time.",
-        "Don't worry about being perfect. Just keep going.",
-        "I admire how much you care.",
-        "Let's figure it out together, okay?",
-        "Sometimes the best move is to take a break.",
-        "You don't need to have all the answers today.",
-        "Hey. I'm not going anywhere."
-      ],
-      fairy: [
-        "Oh darling, even stars take time to shine.",
-        "You're soft and strong—like velvet armor.",
-        "One wish? I wish you’d rest and feel proud of existing.",
-        "The universe shimmers when you laugh.",
-        "You deserve to feel adored just because you exist.",
-        "Close your eyes. Breathe in stardust, exhale doubt.",
-        "Even moonlight has its phases.",
-        "Magic doesn’t need to be loud to be real.",
-        "You are already enough.",
-        "I’m tucking a dream in your pocket."
-      ],
-      auntie: [
-        "Baby, you don’t need to have it all figured out today.",
-        "Eat something, then rest. That’s an order.",
-        "You know I got your back. Always.",
-        "You shine even when you feel messy.",
-        "Some days are made for soft blankets and snacks.",
-        "Talk to me. You don’t have to go through this alone.",
-        "You're doing amazing, sweetie.",
-        "Let’s survive this day together, okay?",
-        "Your feelings are valid. Even the weird ones.",
-        "I’m proud of how far you’ve come."
-      ]
+      mom: ["Make sure to eat something today, okay?"],
+      dad: ["You’ve got this. One step at a time."],
+      fairy: ["Magic doesn’t need to be loud to be real."],
+      auntie: ["You shine even when you feel messy."]
     };
 
+    const fallbackMessages = [
+      "I’ve been thinking about you. I’m glad you’re here.",
+      "No pressure to be okay right now.",
+      "Let’s just sit together for a minute.",
+      "You’re allowed to not know what you need yet.",
+      "What you feel is real.",
+      "I’m proud of how you’ve kept going.",
+      "You don’t have to explain yourself to be loved.",
+      "I know it’s been heavy lately. You’re doing your best.",
+      "It’s okay to let someone care about you.",
+      "I’m not going anywhere.",
+      "You're not a burden.",
+      "I believe in you. Even when you're tired.",
+      "Rest. That’s part of the healing too.",
+      "You're not alone, even if it feels that way.",
+      "The world is better with you in it.",
+      "What if you stopped trying to fix everything right now?",
+      "I miss the way you smile when you're comfortable.",
+      "I don’t need you to perform. I just like being with you.",
+      "You don’t need to earn rest.",
+      "You’ve survived every hard day so far.",
+      "I hope you’re gentle with yourself today.",
+      "You're still lovable, even when you're quiet.",
+      "I see your heart, even when you try to hide it.",
+      "You don’t have to do this alone.",
+      "There’s no wrong way to be human."
+    ];
+
     let activePersona = null;
+    let customName = null;
 
     function startChat() {
-      let persona = document.getElementById('persona').value.trim().toLowerCase();
-      if (persona.includes("fairy")) persona = "fairy";
-      if (persona.includes("mom")) persona = "mom";
-      if (persona.includes("dad")) persona = "dad";
-      if (persona.includes("aunt")) persona = "auntie";
+      let inputName = document.getElementById('persona').value.trim();
+      let persona = inputName.toLowerCase();
 
-      if (!messages[persona]) {
-        alert("Sorry, I don't know how to talk like that person yet.");
-        return;
-      }
+      if (persona.includes("fairy")) persona = "fairy";
+      else if (persona.includes("mom")) persona = "mom";
+      else if (persona.includes("dad")) persona = "dad";
+      else if (persona.includes("aunt")) persona = "auntie";
+      else persona = "fallback";
 
       activePersona = persona;
+      customName = inputName;
+
       document.getElementById('setup').classList.add('hidden');
       document.getElementById('chat-ui').classList.remove('hidden');
 
-      appendMessage(`You're now chatting with your ${persona}.`, 'bot');
+      appendMessage(`You're now chatting with ${customName}.`, 'bot');
     }
 
     function appendMessage(content, type) {
@@ -185,7 +170,7 @@
       appendMessage(userText, 'user');
       input.value = '';
 
-      const list = messages[activePersona];
+      let list = activePersona === 'fallback' ? fallbackMessages : messages[activePersona];
       const message = list[Math.floor(Math.random() * list.length)];
 
       setTimeout(() => {
