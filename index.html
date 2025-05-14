@@ -66,20 +66,38 @@
       gap: 0.5rem;
       flex-direction: row;
     }
-    #setup {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-    #setup p {
-      margin: 0 0 0.2rem;
-    }
     #setup .input-area {
       display: flex;
       width: 100%;
+      gap: 0.5rem;
     }
     #persona {
+      flex: 1;
+      width: 100%;
+      max-width: 100%;
+    }
+    .input-area input[type="text"] {
       flex-grow: 1;
+      width: 100%;
+      max-width: 100%;
+    }
+    #chat-ui::before {
+      content: attr(data-name);
+      display: block;
+      font-size: 1.2rem;
+      font-weight: bold;
+      text-align: center;
+      padding: 0.5rem;
+      border-bottom: 1px solid #ddd;
+      color: #222e50;
+      margin-bottom: 0.5rem;
+    }
+    #chat-ui {
+      position: relative;
+    }
+    #chat-ui[data-name=""]::before {
+      content: "";
+      display: none;
     }
     input, button {
       font-size: 1rem;
@@ -125,7 +143,7 @@
       </div>
     </div>
 
-    <div id="chat-ui" class="hidden">
+    <div id="chat-ui" class="hidden" data-name="">
       <div class="chat-box" id="chat"></div>
       <div id="typing" class="typing-indicator hidden">Typing...</div>
       <div class="input-area">
@@ -210,9 +228,9 @@
       customName = inputName;
 
       document.getElementById('setup').classList.add('hidden');
-      document.getElementById('chat-ui').classList.remove('hidden');
-
-      appendMessage(`You're now chatting with ${customName}.`, 'bot');
+      const chatUI = document.getElementById('chat-ui');
+      chatUI.classList.remove('hidden');
+      chatUI.setAttribute('data-name', customName);
     }
 
     function appendMessage(content, type) {
