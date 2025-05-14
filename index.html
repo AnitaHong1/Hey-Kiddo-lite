@@ -7,8 +7,8 @@
   <style>
     body {
       font-family: sans-serif;
-      background-color: #fbfbff; /* ghost white */
-      color: #222e50; /* space cadet */
+      background-color: #fbfbff;
+      color: #222e50;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -32,23 +32,27 @@
       overflow-y: auto;
       margin-bottom: 1rem;
       max-height: 400px;
+      display: flex;
+      flex-direction: column;
     }
     .message-bubble {
-      background-color: #e9e6e8; /* taupe gray light */
       padding: 0.7rem 1rem;
-      margin: 0.4rem 0;
+      margin: 0.4rem;
       border-radius: 16px;
       max-width: 75%;
       font-size: 1rem;
+      display: inline-block;
     }
     .user {
       align-self: flex-end;
       background-color: #5aa9e6;
       color: white;
+      border-bottom-right-radius: 0;
     }
     .bot {
       align-self: flex-start;
       background-color: #d3cdd1;
+      border-bottom-left-radius: 0;
     }
     .input-area {
       display: flex;
@@ -85,7 +89,7 @@
     <div id="chat-ui" class="hidden">
       <div class="chat-box" id="chat"></div>
       <div class="input-area">
-        <input type="text" id="userInput" placeholder="Type a message..." />
+        <input type="text" id="userInput" placeholder="Type a message..." onkeydown="if(event.key === 'Enter'){sendMessage()}" />
         <button onclick="sendMessage()">Send</button>
       </div>
     </div>
