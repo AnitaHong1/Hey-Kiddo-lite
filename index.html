@@ -82,7 +82,7 @@
   <div class="chat-container">
     <div id="setup">
       <p>Who do you want to talk to?</p>
-      <input type="text" id="persona" placeholder="mom, dad, fairy godmother..." />
+      <input type="text" id="persona" placeholder="mom, dad, fairy godmother, auntie..." />
       <button onclick="startChat()">Start Chat</button>
     </div>
 
@@ -100,17 +100,50 @@
       mom: [
         "Sweetheart, you're doing better than you think.",
         "Make sure to eat something today, okay?",
-        "I love you even when you're grumpy."
+        "I love you even when you're grumpy.",
+        "Did you drink water today?",
+        "Call me when you get a chance.",
+        "I packed snacks in your bag, don’t forget.",
+        "I know things are hard. You're doing your best.",
+        "I'm proud of you even when you don’t feel proud of yourself.",
+        "I wish I could give you a hug right now.",
+        "Get some rest, kiddo."
       ],
       dad: [
         "Proud of you, kiddo. No matter what.",
         "Remember, mistakes are how we grow.",
-        "I'm here, even if I'm quiet about it."
+        "I'm here, even if I'm quiet about it.",
+        "You’ve got this. One step at a time.",
+        "Don't worry about being perfect. Just keep going.",
+        "I admire how much you care.",
+        "Let's figure it out together, okay?",
+        "Sometimes the best move is to take a break.",
+        "You don't need to have all the answers today.",
+        "Hey. I'm not going anywhere."
       ],
       fairy: [
         "Oh darling, even stars take time to shine.",
         "You're soft and strong—like velvet armor.",
-        "One wish? I wish you’d rest and feel proud of existing."
+        "One wish? I wish you’d rest and feel proud of existing.",
+        "The universe shimmers when you laugh.",
+        "You deserve to feel adored just because you exist.",
+        "Close your eyes. Breathe in stardust, exhale doubt.",
+        "Even moonlight has its phases.",
+        "Magic doesn’t need to be loud to be real.",
+        "You are already enough.",
+        "I’m tucking a dream in your pocket."
+      ],
+      auntie: [
+        "Baby, you don’t need to have it all figured out today.",
+        "Eat something, then rest. That’s an order.",
+        "You know I got your back. Always.",
+        "You shine even when you feel messy.",
+        "Some days are made for soft blankets and snacks.",
+        "Talk to me. You don’t have to go through this alone.",
+        "You're doing amazing, sweetie.",
+        "Let’s survive this day together, okay?",
+        "Your feelings are valid. Even the weird ones.",
+        "I’m proud of how far you’ve come."
       ]
     };
 
@@ -119,6 +152,9 @@
     function startChat() {
       let persona = document.getElementById('persona').value.trim().toLowerCase();
       if (persona.includes("fairy")) persona = "fairy";
+      if (persona.includes("mom")) persona = "mom";
+      if (persona.includes("dad")) persona = "dad";
+      if (persona.includes("aunt")) persona = "auntie";
 
       if (!messages[persona]) {
         alert("Sorry, I don't know how to talk like that person yet.");
