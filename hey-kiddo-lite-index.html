@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hey Kiddo</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #fbfbff; /* ghost white */
+      color: #222e50; /* space cadet */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      padding: 1rem;
+    }
+    .container {
+      background: #ffffff;
+      border: 2px solid #44bba4;
+      border-radius: 12px;
+      padding: 2rem;
+      max-width: 500px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    select, button {
+      font-size: 1rem;
+      padding: 0.5rem;
+      margin-top: 1rem;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background-color: #5aa9e6;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    .message {
+      margin-top: 1.5rem;
+      font-size: 1.2rem;
+      color: #584d55; /* taupe gray */
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Hey Kiddo</h1>
+    <p>Who do you want to hear from?</p>
+    <select id="persona">
+      <option value="mom">Mom</option>
+      <option value="dad">Dad</option>
+      <option value="fairy">Fairy Godmother</option>
+    </select>
+    <br />
+    <button onclick="generateMessage()">Talk to Me</button>
+    <div class="message" id="output"></div>
+  </div>
+
+  <script>
+    const messages = {
+      mom: [
+        "Sweetheart, you're doing better than you think.",
+        "Make sure to eat something today, okay?",
+        "I love you even when you're grumpy."
+      ],
+      dad: [
+        "Proud of you, kiddo. No matter what.",
+        "Remember, mistakes are how we grow.",
+        "I'm here, even if I'm quiet about it."
+      ],
+      fairy: [
+        "Oh darling, even stars take time to shine.",
+        "You're soft and strong—like velvet armor.",
+        "One wish? I wish you’d rest and feel proud of existing."
+      ]
+    };
+
+    function generateMessage() {
+      const persona = document.getElementById('persona').value;
+      const list = messages[persona];
+      const message = list[Math.floor(Math.random() * list.length)];
+      document.getElementById('output').textContent = message;
+    }
+  </script>
+</body>
+</html>
