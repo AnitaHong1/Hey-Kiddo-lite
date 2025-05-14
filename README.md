@@ -1,6 +1,6 @@
 # Hey Kiddo (Lite)
 
-A soft, comforting chat app that lets you text with a caring figure from your life—like a mom, dad, fairy godmother, or auntie.
+A soft, comforting chat app that lets you text with a caring figure from your life—like a mom, dad, fairy godmother, etc.
 
 🌱 **Built to soothe the inner child.**  
 💬 Choose a character, type messages, and get loving responses in return.
