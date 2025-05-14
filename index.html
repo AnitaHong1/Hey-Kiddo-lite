@@ -10,52 +10,74 @@
       background-color: #fbfbff; /* ghost white */
       color: #222e50; /* space cadet */
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
       height: 100vh;
       margin: 0;
       padding: 1rem;
     }
-    .container {
+    .chat-container {
       background: #ffffff;
       border: 2px solid #44bba4;
       border-radius: 12px;
-      padding: 2rem;
-      max-width: 500px;
+      padding: 1rem;
+      max-width: 400px;
       width: 100%;
-      text-align: center;
+      display: flex;
+      flex-direction: column;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    .chat-box {
+      flex-grow: 1;
+      overflow-y: auto;
+      margin-bottom: 1rem;
+      max-height: 400px;
+    }
+    .message-bubble {
+      background-color: #e9e6e8; /* taupe gray light */
+      padding: 0.7rem 1rem;
+      margin: 0.4rem 0;
+      border-radius: 16px;
+      max-width: 75%;
+      font-size: 1rem;
+    }
+    .user {
+      align-self: flex-end;
+      background-color: #5aa9e6;
+      color: white;
+    }
+    .bot {
+      align-self: flex-start;
+      background-color: #d3cdd1;
+    }
+    .input-area {
+      display: flex;
+      gap: 0.5rem;
     }
     input, button {
       font-size: 1rem;
       padding: 0.5rem;
-      margin-top: 1rem;
       border-radius: 8px;
       border: 1px solid #ccc;
-      width: 100%;
-      box-sizing: border-box;
+    }
+    input {
+      flex-grow: 1;
     }
     button {
-      background-color: #5aa9e6;
+      background-color: #44bba4;
       color: white;
       border: none;
       cursor: pointer;
     }
-    .message {
-      margin-top: 1.5rem;
-      font-size: 1.2rem;
-      color: #584d55; /* taupe gray */
-    }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Hey Kiddo</h1>
-    <p>Who do you want to hear from?</p>
-    <input type="text" id="persona" placeholder="mom, dad, fairy godmother..." />
-    <button onclick="generateMessage()">Talk to Me</button>
-    <div class="message" id="output"></div>
+  <div class="chat-container">
+    <div class="chat-box" id="chat"></div>
+    <div class="input-area">
+      <input type="text" id="persona" placeholder="mom, dad, fairy godmother..." />
+      <button onclick="generateMessage()">Send</button>
+    </div>
   </div>
 
   <script>
@@ -77,16 +99,35 @@
       ]
     };
 
+    function appendMessage(content, type) {
+      const chat = document.getElementById('chat');
+      const msg = document.createElement('div');
+      msg.classList.add('message-bubble', type);
+      msg.textContent = content;
+      chat.appendChild(msg);
+      chat.scrollTop = chat.scrollHeight;
+    }
+
     function generateMessage() {
-      let persona = document.getElementById('persona').value.trim().toLowerCase();
-      if (persona.includes("fairy")) persona = "fairy"; // match partials like "fairy godmother"
+      const input = document.getElementById('persona');
+      let persona = input.value.trim().toLowerCase();
+      appendMessage(input.value, 'user');
+      input.value = '';
+
+      if (persona.includes("fairy")) persona = "fairy";
+
       if (!messages[persona]) {
-        document.getElementById('output').textContent = "Hmm... I don't know how to talk like that person yet.";
+        setTimeout(() => {
+          appendMessage("Hmm... I don't know how to talk like that person yet.", 'bot');
+        }, 600);
         return;
       }
+
       const list = messages[persona];
       const message = list[Math.floor(Math.random() * list.length)];
-      document.getElementById('output').textContent = message;
+      setTimeout(() => {
+        appendMessage(message, 'bot');
+      }, 600);
     }
   </script>
 </body>
