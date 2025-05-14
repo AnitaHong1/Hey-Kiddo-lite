@@ -66,20 +66,38 @@
       gap: 0.5rem;
       flex-direction: row;
     }
+    #setup {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    #setup p {
+      margin: 0 0 0.2rem;
+    }
+    #setup .input-area {
+      display: flex;
+      width: 100%;
+    }
+    #persona {
+      flex-grow: 1;
+    }
     input, button {
       font-size: 1rem;
       padding: 0.6rem;
       border-radius: 8px;
       border: 1px solid #ccc;
     }
-    input {
-      flex-grow: 1;
-    }
     button {
       background-color: #44bba4;
       color: white;
       border: none;
       cursor: pointer;
+    }
+    .typing-indicator {
+      font-style: italic;
+      font-size: 0.95rem;
+      margin: 0.5rem 0 0.5rem 0.5rem;
+      color: #888;
     }
     .hidden {
       display: none;
@@ -101,12 +119,15 @@
     <div class="chat-header">Hey Kiddo 💬</div>
     <div id="setup">
       <p>Who do you want to talk to?</p>
-      <input type="text" id="persona" placeholder="mom, dad, fairy godmother..." onkeydown="if(event.key === 'Enter'){startChat()}" />
-      <button onclick="startChat()">Start Chat</button>
+      <div class="input-area">
+        <input type="text" id="persona" placeholder="mom, dad, fairy godmother..." onkeydown="if(event.key === 'Enter'){startChat()}" />
+        <button onclick="startChat()">Start Chat</button>
+      </div>
     </div>
 
     <div id="chat-ui" class="hidden">
       <div class="chat-box" id="chat"></div>
+      <div id="typing" class="typing-indicator hidden">Typing...</div>
       <div class="input-area">
         <input type="text" id="userInput" placeholder="Type a message..." onkeydown="if(event.key === 'Enter'){sendMessage()}" />
         <button onclick="sendMessage()">Send</button>
@@ -211,12 +232,16 @@
       appendMessage(userText, 'user');
       input.value = '';
 
+      const typing = document.getElementById('typing');
+      typing.classList.remove('hidden');
+
       let list = activePersona === 'fallback' ? fallbackMessages : messages[activePersona];
       const message = list[Math.floor(Math.random() * list.length)];
 
       setTimeout(() => {
+        typing.classList.add('hidden');
         appendMessage(message, 'bot');
-      }, 700);
+      }, 1000);
     }
   </script>
 </body>
