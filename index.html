@@ -12,7 +12,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      height: 100vh;
+      min-height: 100vh;
       margin: 0;
       padding: 1rem;
     }
@@ -20,28 +20,35 @@
       background: #ffffff;
       border: 2px solid #44bba4;
       border-radius: 12px;
-      padding: 1rem;
-      max-width: 400px;
-      width: 100%;
+      padding: 1.5rem;
+      max-width: 95vw;
+      width: 500px;
       display: flex;
       flex-direction: column;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    .chat-header {
+      font-size: 1.4rem;
+      font-weight: bold;
+      margin-bottom: 1rem;
+      text-align: center;
     }
     .chat-box {
       flex-grow: 1;
       overflow-y: auto;
       margin-bottom: 1rem;
-      max-height: 400px;
+      max-height: 60vh;
       display: flex;
       flex-direction: column;
     }
     .message-bubble {
-      padding: 0.7rem 1rem;
-      margin: 0.4rem;
+      padding: 0.8rem 1.2rem;
+      margin: 0.5rem;
       border-radius: 16px;
-      max-width: 75%;
-      font-size: 1rem;
+      max-width: 85%;
+      font-size: 1.05rem;
       display: inline-block;
+      word-wrap: break-word;
     }
     .user {
       align-self: flex-end;
@@ -57,10 +64,11 @@
     .input-area {
       display: flex;
       gap: 0.5rem;
+      flex-direction: row;
     }
     input, button {
       font-size: 1rem;
-      padding: 0.5rem;
+      padding: 0.6rem;
       border-radius: 8px;
       border: 1px solid #ccc;
     }
@@ -76,13 +84,24 @@
     .hidden {
       display: none;
     }
+    @media screen and (max-width: 600px) {
+      .chat-container {
+        padding: 1rem;
+        width: 100%;
+        max-width: 95vw;
+      }
+      .message-bubble {
+        font-size: 1rem;
+      }
+    }
   </style>
 </head>
 <body>
   <div class="chat-container">
+    <div class="chat-header">Hey Kiddo 💬</div>
     <div id="setup">
       <p>Who do you want to talk to?</p>
-      <input type="text" id="persona" placeholder="mom, dad, fairy godmother..." />
+      <input type="text" id="persona" placeholder="mom, dad, fairy godmother..." onkeydown="if(event.key === 'Enter'){startChat()}" />
       <button onclick="startChat()">Start Chat</button>
     </div>
 
@@ -97,8 +116,30 @@
 
   <script>
     const messages = {
-      mom: ["Make sure to eat something today, okay?"],
-      dad: ["You’ve got this. One step at a time."],
+      mom: [
+        "Make sure to eat something today, okay?",
+        "I believe in you.",
+        "I see your heart, even when you try to hide it.",
+        "You don’t have to do this alone.",
+        "Did you drink water today?",
+        "Please take a break, sweetie.",
+        "You’ve always been stronger than you think.",
+        "No matter what, you’ll always be my baby.",
+        "I love you just as you are.",
+        "It’s okay to cry. I’m here."
+      ],
+      dad: [
+        "You’ve got this. One step at a time.",
+        "I’m proud of you—even when you don’t see it.",
+        "Let’s take this one day at a time.",
+        "There’s no shame in starting over.",
+        "You’re doing better than you think.",
+        "I might not always say it, but I’m always thinking of you.",
+        "Keep going. I’ve got your back.",
+        "Sometimes resting is the bravest thing.",
+        "No need to rush—go at your pace.",
+        "You’ve already made it so far."
+      ],
       fairy: ["Magic doesn’t need to be loud to be real."],
       auntie: ["You shine even when you feel messy."]
     };
