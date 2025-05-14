@@ -2,35 +2,42 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hey Kiddo Lite</title>
+  <title>Hey Kiddo</title>
   <style>
     body {
       font-family: sans-serif;
       background-color: #fbfbff;
-      color: #222e50;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
       margin: 0;
       padding: 1rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
     }
     .chat-container {
       background: #ffffff;
       border: 2px solid #44bba4;
       border-radius: 12px;
       padding: 1.5rem;
-      max-width: 95vw;
-      width: 500px;
+      max-width: 500px;
+      width: 100%;
       display: flex;
       flex-direction: column;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     }
     .chat-header {
-      font-size: 1.3rem;
-      font-weight: bold;
-      margin-bottom: 1rem;
       text-align: center;
+      margin-bottom: 0.5rem;
+    }
+    .chat-header h1 {
+      margin: 0;
+      font-size: 1.6rem;
+    }
+    .chat-header .persona {
+      margin-top: 0.3rem;
+      font-size: 1.1rem;
+      font-weight: normal;
+      color: #555;
     }
     .chat-box {
       flex-grow: 1;
@@ -41,12 +48,11 @@
       flex-direction: column;
     }
     .message-bubble {
-      padding: 0.8rem 1.2rem;
-      margin: 0.5rem;
+      padding: 0.8rem 1rem;
+      margin: 0.4rem;
       border-radius: 16px;
-      max-width: 85%;
-      font-size: 1.05rem;
-      display: inline-block;
+      max-width: 75%;
+      font-size: 1rem;
       word-wrap: break-word;
     }
     .user {
@@ -63,22 +69,6 @@
     .input-area {
       display: flex;
       gap: 0.5rem;
-      flex-direction: row;
-    }
-    #setup {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-    #setup p {
-      margin: 0 0 0.2rem;
-    }
-    #setup .input-area {
-      display: flex;
-      width: 100%;
-    }
-    #persona {
-      flex-grow: 1;
     }
     input, button {
       font-size: 1rem;
@@ -86,43 +76,45 @@
       border-radius: 8px;
       border: 1px solid #ccc;
     }
+    input {
+      flex: 1;
+    }
     button {
       background-color: #44bba4;
       color: white;
       border: none;
       cursor: pointer;
     }
-    .typing-indicator {
-      font-style: italic;
-      font-size: 0.95rem;
-      margin: 0.5rem 0 0.5rem 0.5rem;
-      color: #888;
+    #setup {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
     }
     .hidden {
       display: none;
     }
-    @media screen and (max-width: 600px) {
-      .chat-container {
-        padding: 1rem;
-        width: 100%;
-        max-width: 95vw;
-      }
-      .message-bubble {
-        font-size: 1rem;
-      }
+    .typing-indicator {
+      font-style: italic;
+      font-size: 0.95rem;
+      margin: 0.5rem;
+      color: #888;
     }
   </style>
 </head>
 <body>
   <div class="chat-container">
-    <div class="chat-header" id="chatHeader">Hey Kiddo</div>
-    <div id="setup">
-      <p>Who do you want to talk to?</p>
-      <div class="input-area">
-        <input type="text" id="persona" placeholder="mom, dad, fairy godmother..." onkeydown="if(event.key === 'Enter'){startChat()}" />
-        <button onclick="startChat()">Start Chat</button>
-      </div>
-    </div><div id="chat-ui" class="hidden">
+    <div class="chat-header">
+      <h1>Hey Kiddo 💬</h1>
+      <div class="persona" id="personaLabel"></div>
+    </div><div id="setup">
+  <p>Who do you want to talk to?</p>
+  <div class="input-area">
+    <input type="text" id="persona" placeholder="mom, dad, fairy godmother..." onkeydown="if(event.key === 'Enter'){startChat()}" />
+    <button onclick="startChat()">Start Chat</button>
+  </div>
+</div>
+
+<div id="chat-ui" class="hidden">
   <div class="chat-box" id="chat"></div>
   <div id="typing" class="typing-indicator hidden">Typing...</div>
   <div class="input-area">
@@ -135,39 +127,34 @@
     const messages = {
       mom: [
         "Hi honey. What’s on your mind?",
-        "Please take a break, sweetie. 💖",
-        "Did you eat something today?",
-        "You don’t have to do this alone.",
-        "I love you just as you are.",
-        "You’ve always been stronger than you think."
+        "I believe in you.",
+        "Make sure to eat something today, okay?",
+        "You’ve always been stronger than you think.",
+        "I see your heart, even when you try to hide it."
       ],
       dad: [
         "You've got this. One step at a time.",
-        "Keep going. I’m proud of you.",
-        "Resting is part of the process.",
-        "No matter what, I’m here.",
+        "I’m proud of you—even when you don’t see it.",
+        "Keep going. I’ve got your back.",
         "You’re doing better than you think."
       ],
       fairy: [
-        "Hello, dear one. ✨",
         "Magic doesn’t need to be loud to be real.",
         "You sparkle even when you’re tired.",
-        "You are so deeply worthy."
+        "I’m here for you, little star ✨"
       ],
       auntie: [
-        "You shine even when you feel messy. 🌙",
-        "I see how hard you’re trying.",
+        "You shine even when you feel messy.",
+        "Let’s just take it one moment at a time.",
         "You don’t have to be perfect to be loved."
       ]
     };
 
     const fallbackMessages = [
-      "I’m glad you’re here.",
-      "Let’s just sit together for a minute.",
-      "You’re allowed to not know what you need yet.",
-      "What you feel is real.",
-      "You’re not a burden.",
-      "You’ve survived every hard day so far."
+      "I’m here.",
+      "You’re allowed to feel whatever you feel.",
+      "Let’s take a deep breath together.",
+      "You’re doing your best."
     ];
 
     let activePersona = null;
@@ -189,7 +176,7 @@
       document.getElementById('setup').classList.add('hidden');
       document.getElementById('chat-ui').classList.remove('hidden');
 
-      document.getElementById('chatHeader').textContent = customName;
+      document.getElementById('personaLabel').textContent = customName;
       appendMessage(messages[persona]?.[0] || fallbackMessages[0], 'bot');
     }
 
