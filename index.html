@@ -1,167 +1,248 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta name="description" content="Anita Hong – Computer Science graduate, data analytics fellow, and creator of emotionally resonant tech. Portfolio of projects, resume, and contact info.">
-  <meta name="keywords" content="Anita Hong, data analytics, coding projects, HTML, CSS, JavaScript, Tableau, Excel, COOP, iCode, portfolio">
-  <meta name="author" content="Anita Hong">
-  <link rel="canonical" href="https://your-custom-domain.com/">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Anita Hong – Data Analyst & Builder of Kind Interfaces</title>
+  <title>Hey Kiddo</title>
   <style>
     body {
+      font-family: sans-serif;
+      background-color: #fbfbff;
+      color: #222e50;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
       margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #fff9f8;
-      color: #2b2b2b;
-      overflow-x: hidden;
+      padding: 1rem;
     }
-    header {
-      background: #44bba4;
-      color: white;
-      padding: 2rem 1rem;
-      text-align: center;
-    }
-    header h1 {
-      margin: 0;
-      font-size: 2.5rem;
-    }
-    .subtitle {
-      font-size: 1.1rem;
-      font-weight: 300;
-      color: #fefefe;
-      margin-top: 0.5rem;
-      min-height: 1.5rem;
-      opacity: 1;
-      transition: opacity 1s ease-in-out;
-    }
-    main {
-      padding: 2rem 1rem;
-      max-width: 800px;
-      margin: 0 auto;
-    }
-    h2 {
-      color: #5aa9e6;
-    }
-    .projects {
+    .chat-container {
+      background: #ffffff;
+      border: 2px solid #44bba4;
+      border-radius: 12px;
+      padding: 1.5rem;
+      max-width: 95vw;
+      width: 500px;
       display: flex;
       flex-direction: column;
-      gap: 1.5rem;
-      margin-top: 1rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     }
-    .card {
-      background: #ffffff;
-      border: 2px dashed #d3cdd1;
-      border-radius: 12px;
-      padding: 1rem;
-      transition: all 0.3s ease;
-      text-decoration: none;
-      color: inherit;
-    }
-    .card:hover {
-      background-color: #fbfbff;
-      border-color: #44bba4;
-    }
-    footer {
+    .chat-header {
+      font-size: 1.4rem;
+      font-weight: bold;
+      margin-bottom: 1rem;
       text-align: center;
-      padding: 3rem 1rem 2rem;
-      background: #fefefe;
-      font-size: 0.9rem;
-      color: #888;
-      position: relative;
     }
-    .flowers {
-      margin-top: 2rem;
-      font-size: 1.2rem;
+    .chat-box {
+      flex-grow: 1;
+      overflow-y: auto;
+      margin-bottom: 1rem;
+      max-height: 60vh;
+      display: flex;
+      flex-direction: column;
     }
-    .flowers span {
+    .message-bubble {
+      padding: 0.8rem 1.2rem;
+      margin: 0.5rem;
+      border-radius: 16px;
+      max-width: 85%;
+      font-size: 1.05rem;
       display: inline-block;
-      animation: float 6s infinite ease-in-out;
+      word-wrap: break-word;
     }
-    .flowers span:nth-child(odd) {
-      animation-delay: 3s;
+    .user {
+      align-self: flex-end;
+      background-color: #5aa9e6;
+      color: white;
+      border-bottom-right-radius: 0;
     }
-    @keyframes float {
-      0% { transform: translateY(0px); opacity: 1; }
-      50% { transform: translateY(-10px); opacity: 0.6; }
-      100% { transform: translateY(0px); opacity: 1; }
+    .bot {
+      align-self: flex-start;
+      background-color: #d3cdd1;
+      border-bottom-left-radius: 0;
+    }
+    .input-area {
+      display: flex;
+      gap: 0.5rem;
+      flex-direction: row;
+    }
+    #setup {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    #setup p {
+      margin: 0 0 0.2rem;
+    }
+    #setup .input-area {
+      display: flex;
+      width: 100%;
+    }
+    #persona {
+      flex-grow: 1;
+    }
+    input, button {
+      font-size: 1rem;
+      padding: 0.6rem;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background-color: #44bba4;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    .typing-indicator {
+      font-style: italic;
+      font-size: 0.95rem;
+      margin: 0.5rem 0 0.5rem 0.5rem;
+      color: #888;
+    }
+    .hidden {
+      display: none;
+    }
+    @media screen and (max-width: 600px) {
+      .chat-container {
+        padding: 1rem;
+        width: 100%;
+        max-width: 95vw;
+      }
+      .message-bubble {
+        font-size: 1rem;
+      }
     }
   </style>
 </head>
 <body>
-  <h1 style="display:none">Anita Hong – Official Personal Website</h1>
-  <header>
-    <h1>Hi, I'm Anita 🌷</h1>
-<p style="font-size: 1.1rem; font-weight: 300; margin: 0.5rem 0 0;">and...</p>
-    <div class="subtitle" id="subtitle"></div>
-  </header>  <main>
-    <h2>About Me</h2>
-    <p>I'm a CS grad relearning how to build with joy. For a long time, fear and burnout kept me from coding—but lately, I’ve been creating soft, personal projects to heal that. I love tools that feel human, interfaces that feel gentle, and making tech that supports emotions as much as it supports tasks.</p><h2>Projects</h2>
-<div class="projects">
-  <a class="card" href="https://hey-kiddo-lite.vercel.app/" target="_blank">💌 <strong>Hey Kiddo (Lite)</strong> – Text a comforting voice like mom, dad, or your fairy godmother.</a>
-  <a class="card">🍽️ <strong>What Do You Want to Eat?</strong> – A decision helper for the chronically indecisive. (Coming soon)</a>
-  <a class="card">🎟️ <strong>Loyalty Stamp App</strong> – A digital punch card for small businesses. (Coming soon)</a>
-</div>
-  <h2>Résumé</h2>
-<section style="margin-top: 1.5rem;">
-  <h3 style="color:#5aa9e6; margin-bottom: 0.5rem;">Education</h3>
-  <p><strong>SUNY Binghamton</strong> – B.S. in Computer Science, 2024</p>
+  <div class="chat-container">
+    <div class="chat-header">Hey Kiddo 💬</div>
+    <div id="setup">
+      <p>Who do you want to talk to?</p>
+      <div class="input-area">
+        <input type="text" id="persona" placeholder="mom, dad, fairy godmother..." onkeydown="if(event.key === 'Enter'){startChat()}" />
+        <button onclick="startChat()">Start Chat</button>
+      </div>
+    </div>
 
-  <h3 style="color:#5aa9e6; margin-top: 1.5rem; margin-bottom: 0.5rem;">Experience</h3>
-  <p><strong>COOP Data Fellow</strong> – Data analytics training in Excel, SQL, Tableau, and Python. Collaborated on group projects, presented insights, and practiced career readiness skills.</p>
-  <p><strong>iCode Princeton</strong> – Coding Instructor & Operations. Taught middle schoolers Python/C++, supported marketing, and improved classroom flow. Became interim lead after colleague departure.</p>
+    <div id="chat-ui" class="hidden">
+      <div class="chat-box" id="chat"></div>
+      <div id="typing" class="typing-indicator hidden">Typing...</div>
+      <div class="input-area">
+        <input type="text" id="userInput" placeholder="Type a message..." onkeydown="if(event.key === 'Enter'){sendMessage()}" />
+        <button onclick="sendMessage()">Send</button>
+      </div>
+    </div>
+  </div>
 
-  <h3 style="color:#5aa9e6; margin-top: 1.5rem; margin-bottom: 0.5rem;">Skills</h3>
-  <ul>
-    <li>Languages: Python, SQL, HTML/CSS, JavaScript</li>
-    <li>Tools: Tableau, Excel, Git, Canva</li>
-    <li>Soft Skills: Empathy-driven design, communication, adaptability</li>
-  </ul>
+  <script>
+    const messages = {
+      mom: [
+        "Make sure to eat something today, okay?",
+        "I believe in you.",
+        "I see your heart, even when you try to hide it.",
+        "You don’t have to do this alone.",
+        "Did you drink water today?",
+        "Please take a break, sweetie.",
+        "You’ve always been stronger than you think.",
+        "No matter what, you’ll always be my baby.",
+        "I love you just as you are.",
+        "It’s okay to cry. I’m here."
+      ],
+      dad: [
+        "You’ve got this. One step at a time.",
+        "I’m proud of you—even when you don’t see it.",
+        "Let’s take this one day at a time.",
+        "There’s no shame in starting over.",
+        "You’re doing better than you think.",
+        "I might not always say it, but I’m always thinking of you.",
+        "Keep going. I’ve got your back.",
+        "Sometimes resting is the bravest thing.",
+        "No need to rush—go at your pace.",
+        "You’ve already made it so far."
+      ],
+      fairy: ["Magic doesn’t need to be loud to be real."],
+      auntie: ["You shine even when you feel messy."]
+    };
 
-  <h3 style="color:#5aa9e6; margin-top: 1.5rem; margin-bottom: 0.5rem;">Certifications</h3>
-  <p>Google Analytics Certification (Coursera)</p>
-</section>
+    const fallbackMessages = [
+      "I’ve been thinking about you. I’m glad you’re here.",
+      "No pressure to be okay right now.",
+      "Let’s just sit together for a minute.",
+      "You’re allowed to not know what you need yet.",
+      "What you feel is real.",
+      "I’m proud of how you’ve kept going.",
+      "You don’t have to explain yourself to be loved.",
+      "I know it’s been heavy lately. You’re doing your best.",
+      "It’s okay to let someone care about you.",
+      "I’m not going anywhere.",
+      "You're not a burden.",
+      "I believe in you. Even when you're tired.",
+      "Rest. That’s part of the healing too.",
+      "You're not alone, even if it feels that way.",
+      "The world is better with you in it.",
+      "What if you stopped trying to fix everything right now?",
+      "I miss the way you smile when you're comfortable.",
+      "I don’t need you to perform. I just like being with you.",
+      "You don’t need to earn rest.",
+      "You’ve survived every hard day so far.",
+      "I hope you’re gentle with yourself today.",
+      "You're still lovable, even when you're quiet.",
+      "I see your heart, even when you try to hide it.",
+      "You don’t have to do this alone.",
+      "There’s no wrong way to be human."
+    ];
 
-  </main>  <footer>
-    <div class="flowers">🌼 🌸 🌿 🌼 🌸 🌼 🌷 🌼 🌼 🌿 🌼 🌸</div>
-    Built with patience, imperfection, and quiet courage.
-  </footer>  <script>
-    const subtitle = document.getElementById("subtitle");
-    const phrases = [
-  "you're doing better than you think",
-  "it's okay to take your time",
-  "what you made today matters",
-  "you’re not behind, you’re on your way",
-  "some days are for resting too"
-];
+    let activePersona = null;
+    let customName = null;
 
-    let phraseIndex = 0;
-    let charIndex = 0;
-    let isDeleting = false;
+    function startChat() {
+      let inputName = document.getElementById('persona').value.trim();
+      let persona = inputName.toLowerCase();
 
-    function typeEffect() {
-      const currentPhrase = phrases[phraseIndex];
-      if (!isDeleting) {
-        subtitle.textContent = currentPhrase.slice(0, ++charIndex);
-        if (charIndex === currentPhrase.length) {
-          isDeleting = true;
-          setTimeout(typeEffect, 2400); // pause after typing
-          return;
-        }
-      } else {
-        subtitle.style.opacity = 0;
-        setTimeout(() => {
-          subtitle.textContent = "";
-          subtitle.style.opacity = 1;
-          isDeleting = false;
-          charIndex = 0;
-          phraseIndex = (phraseIndex + 1) % phrases.length;
-          setTimeout(typeEffect, 300);
-        }, 600);
-        return;
-      }
-      setTimeout(typeEffect, 90);
+      if (persona.includes("fairy")) persona = "fairy";
+      else if (persona.includes("mom")) persona = "mom";
+      else if (persona.includes("dad")) persona = "dad";
+      else if (persona.includes("aunt")) persona = "auntie";
+      else persona = "fallback";
+
+      activePersona = persona;
+      customName = inputName;
+
+      document.getElementById('setup').classList.add('hidden');
+      document.getElementById('chat-ui').classList.remove('hidden');
+
+      appendMessage(`You're now chatting with ${customName}.`, 'bot');
     }
 
-    typeEffect();
-  </script></body>
+    function appendMessage(content, type) {
+      const chat = document.getElementById('chat');
+      const msg = document.createElement('div');
+      msg.classList.add('message-bubble', type);
+      msg.textContent = content;
+      chat.appendChild(msg);
+      chat.scrollTop = chat.scrollHeight;
+    }
+
+    function sendMessage() {
+      const input = document.getElementById('userInput');
+      const userText = input.value.trim();
+      if (!userText) return;
+
+      appendMessage(userText, 'user');
+      input.value = '';
+
+      const typing = document.getElementById('typing');
+      typing.classList.remove('hidden');
+
+      let list = activePersona === 'fallback' ? fallbackMessages : messages[activePersona];
+      const message = list[Math.floor(Math.random() * list.length)];
+
+      setTimeout(() => {
+        typing.classList.add('hidden');
+        appendMessage(message, 'bot');
+      }, 1000);
+    }
+  </script>
+</body>
 </html>
