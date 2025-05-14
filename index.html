@@ -89,9 +89,11 @@
       display: flex;
       flex-direction: column;
       gap: 0.5rem;
+      text-align: center;
     }
-    .hidden {
+    #chat-ui {
       display: none;
+      flex-direction: column;
     }
     .typing-indicator {
       font-style: italic;
@@ -103,20 +105,20 @@
 </head>
 <body>
   <div class="chat-container">
-    <div class="chat-header">
+    <div id="setup">
       <h1>Hey Kiddo 💬</h1>
-      <div class="persona" id="personaLabel"></div>
-    </div><div id="setup">
-  <p>Who do you want to talk to?</p>
-  <div class="input-area">
-    <input type="text" id="persona" placeholder="mom, dad, fairy godmother..." onkeydown="if(event.key === 'Enter'){startChat()}" />
-    <button onclick="startChat()">Start Chat</button>
+      <p>Who do you want to talk to?</p>
+      <div class="input-area">
+        <input type="text" id="persona" placeholder="mom, dad, fairy godmother..." onkeydown="if(event.key === 'Enter'){startChat()}" />
+        <button onclick="startChat()">Start Chat</button>
+      </div>
+    </div><div id="chat-ui">
+  <div class="chat-header">
+    <h1>Hey Kiddo 💬</h1>
+    <div class="persona" id="personaLabel"></div>
   </div>
-</div>
-
-<div id="chat-ui" class="hidden">
   <div class="chat-box" id="chat"></div>
-  <div id="typing" class="typing-indicator hidden">Typing...</div>
+  <div id="typing" class="typing-indicator" style="display: none;">Typing...</div>
   <div class="input-area">
     <input type="text" id="userInput" placeholder="Type a message..." onkeydown="if(event.key === 'Enter'){sendMessage()}" />
     <button onclick="sendMessage()">Send</button>
@@ -173,8 +175,8 @@
       activePersona = persona;
       customName = inputName;
 
-      document.getElementById('setup').classList.add('hidden');
-      document.getElementById('chat-ui').classList.remove('hidden');
+      document.getElementById('setup').style.display = 'none';
+      document.getElementById('chat-ui').style.display = 'flex';
 
       document.getElementById('personaLabel').textContent = customName;
       appendMessage(messages[persona]?.[0] || fallbackMessages[0], 'bot');
@@ -198,13 +200,13 @@
       input.value = '';
 
       const typing = document.getElementById('typing');
-      typing.classList.remove('hidden');
+      typing.style.display = 'block';
 
       let list = messages[activePersona] || fallbackMessages;
       const message = list[Math.floor(Math.random() * (list.length - 1)) + 1];
 
       setTimeout(() => {
-        typing.classList.add('hidden');
+        typing.style.display = 'none';
         appendMessage(message, 'bot');
       }, 1000);
     }
