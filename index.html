@@ -27,12 +27,14 @@
       text-align: center;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     }
-    select, button {
+    input, button {
       font-size: 1rem;
       padding: 0.5rem;
       margin-top: 1rem;
       border-radius: 8px;
       border: 1px solid #ccc;
+      width: 100%;
+      box-sizing: border-box;
     }
     button {
       background-color: #5aa9e6;
@@ -51,12 +53,7 @@
   <div class="container">
     <h1>Hey Kiddo</h1>
     <p>Who do you want to hear from?</p>
-    <select id="persona">
-      <option value="mom">Mom</option>
-      <option value="dad">Dad</option>
-      <option value="fairy">Fairy Godmother</option>
-    </select>
-    <br />
+    <input type="text" id="persona" placeholder="mom, dad, fairy godmother..." />
     <button onclick="generateMessage()">Talk to Me</button>
     <div class="message" id="output"></div>
   </div>
@@ -81,7 +78,12 @@
     };
 
     function generateMessage() {
-      const persona = document.getElementById('persona').value;
+      let persona = document.getElementById('persona').value.trim().toLowerCase();
+      if (persona.includes("fairy")) persona = "fairy"; // match partials like "fairy godmother"
+      if (!messages[persona]) {
+        document.getElementById('output').textContent = "Hmm... I don't know how to talk like that person yet.";
+        return;
+      }
       const list = messages[persona];
       const message = list[Math.floor(Math.random() * list.length)];
       document.getElementById('output').textContent = message;
